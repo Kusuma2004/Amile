@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { Box, Typography, Card, CardContent, Tabs, Tab } from '@mui/material';
+import React from 'react';
+import { Box, Typography, Card, CardContent } from '@mui/material';
+import { Person, Feedback, School } from '@mui/icons-material'; // Importing icons from Material-UI
 import MentorProgress from './MentorProgress';
 
 const Dashboard = () => {
-  const [tabIndex, setTabIndex] = useState(0);
-
   const students = [
     { name: 'John Doe', progress: '75%' },
     { name: 'Jane Smith', progress: '85%' },
@@ -23,197 +22,194 @@ const Dashboard = () => {
     { title: 'Machine Learning', students: 20 },
   ];
 
-  const handleTabChange = (event, newIndex) => {
-    setTabIndex(newIndex);
-  };
-
   return (
     <Box
       sx={{
         height: '100vh',
-        background: 'linear-gradient(135deg, #2b5876, #4e4376)', // Gradient background
+        background: 'transparent',
         display: 'flex',
         flexDirection: 'column',
         borderRadius: '10px',
+        padding: '24px',
+        perspective: '1000px', // Perspective for 3D effect
       }}
     >
-      {/* Main Content */}
-      <Box
-        component="main"
+      <Typography
+        variant="h4"
+        gutterBottom
         sx={{
-          flexGrow: 1,
-          padding: '24px',
-          backgroundColor: 'transparent', // No background color for main content
-          color: '#265073',
+          fontWeight: 'bold',
+          textAlign: 'center',
+          color: 'violet',
+          mb: '20px',
+          fontSize: '1.5rem',
         }}
       >
-        <Typography
-          variant="h4"
-          gutterBottom
-          sx={{
-            fontWeight: 'bold',
-            textAlign: 'center',
-            color: 'white', 
-            mb:'50px',
-            mt:'10px'// Ensure text is readable against the gradient background
-          }}
-        >
-          Mentor Dashboard
-        </Typography>
+        Mentor Dashboard
+      </Typography>
 
-        {/* Tabs with Custom Styling */}
-        <Tabs
-          value={tabIndex}
-          onChange={handleTabChange}
-          aria-label="Dashboard Tabs"
-          centered
+      {/* First Row: Cards */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '30px',
+        }}
+      >
+        {/* Students Card */}
+        <Card
           sx={{
-            mb: 5,
-            '& .MuiTabs-flexContainer': {
-              justifyContent: 'center',
-            },
-            '& .MuiTab-root': {
-              backgroundColor: 'transparent', // Light background for tabs
-              color: 'white', // Text color
-              borderRadius: '10px', // Rounded corners
-              margin: '0 10px',
-              minWidth: '100px', // Minimum width for tabs
-              padding: '6px 12px',
-              '&:hover': {
-                backgroundColor: 'transparent', // Darker on hover
-              },
-            },
-            '& .Mui-selected': {
-              backgroundColor: 'transparent', // Highlight selected tab
-              color: '#000', // Darker text color for selected tab
-              fontWeight: 'bold', // Bold text for selected tab
-            },
-            '& .MuiTabs-indicator': {
-              backgroundColor: 'transparent', // Remove default indicator
+            background: 'linear-gradient(to right, #43cea2, #185a9d)',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            color: 'white',
+            borderRadius: '15px',
+            boxShadow: '0 15px 45px rgba(0, 0, 0, 0.4)', // Enhanced shadow
+            width: '31%',
+            height: '150px',
+            transformStyle: 'preserve-3d',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            '&:hover': {
+              transform: 'rotateY(15deg) rotateX(5deg) scale(1.05)', // Enhanced 3D effect on hover
+              boxShadow: '0 25px 55px rgba(0, 0, 0, 0.5)',
             },
           }}
         >
-          <Tab label="Students Assigned" />
-          <Tab label="Feedback" />
-          <Tab label="Courses" />
-          <Tab label="Graphs" />
-        </Tabs>
+          <CardContent>
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ fontWeight: 'bold', fontSize: '1rem', display: 'flex', alignItems: 'center' }}
+            >
+              <Person sx={{ mr: 1 }} /> Students Assigned
+            </Typography>
+            <ul style={{ listStyleType: 'none', padding: 0, fontSize: '0.8rem' }}>
+              {students.map((student, index) => (
+                <li key={index}>
+                  {student.name} - Progress: {student.progress}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
 
-        {/* Tab Contents */}
-        {tabIndex === 0 && (
-          <Card
+        {/* Feedback Card */}
+        <Card
+          sx={{
+            background: 'linear-gradient(to right, #ff9966, #ff5e62)',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            color: 'white',
+            borderRadius: '15px',
+            boxShadow: '0 15px 45px rgba(0, 0, 0, 0.4)', // Enhanced shadow
+            width: '31%',
+            height: '150px',
+            transformStyle: 'preserve-3d',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            '&:hover': {
+              transform: 'rotateY(15deg) rotateX(5deg) scale(1.05)', // Enhanced 3D effect on hover
+              boxShadow: '0 25px 55px rgba(0, 0, 0, 0.5)',
+            },
+          }}
+        >
+          <CardContent>
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ fontWeight: 'bold', fontSize: '1rem', display: 'flex', alignItems: 'center' }}
+            >
+              <Feedback sx={{ mr: 1 }} /> Feedback
+            </Typography>
+            <ul style={{ listStyleType: 'none', padding: 0, fontSize: '0.8rem' }}>
+              {feedback.map((item, index) => (
+                <li key={index}>
+                  {item.date}: {item.comment}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        {/* Courses Card */}
+        <Card
+          sx={{
+            background: 'linear-gradient(to right, #ff512f, #f09819)',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            color: 'white',
+            borderRadius: '15px',
+            boxShadow: '0 15px 45px rgba(0, 0, 0, 0.4)', // Enhanced shadow
+            width: '31%',
+            height: '150px',
+            transformStyle: 'preserve-3d',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            '&:hover': {
+              transform: 'rotateY(15deg) rotateX(5deg) scale(1.05)', // Enhanced 3D effect on hover
+              boxShadow: '0 25px 55px rgba(0, 0, 0, 0.5)',
+            },
+          }}
+        >
+          <CardContent>
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{ fontWeight: 'bold', fontSize: '1rem', display: 'flex', alignItems: 'center' }}
+            >
+              <School sx={{ mr: 1 }} /> Courses
+            </Typography>
+            <ul style={{ listStyleType: 'none', padding: 0, fontSize: '0.8rem' }}>
+              {courses.map((course, index) => (
+                <li key={index}>
+                  {course.title} - Students: {course.students}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      </Box>
+
+      {/* Second Row: Graph */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: '5px',
+        }}
+      >
+        <Card
+          sx={{
+            width: '90%',
+            height: '500px',
+            backgroundColor: 'transparent',
+            borderRadius: '15px',
+            boxShadow: '0 15px 45px rgba(0, 0, 0, 0.4)', // Enhanced shadow
+            transformStyle: 'preserve-3d',
+            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+            '&:hover': {
+              transform: 'rotateY(15deg) rotateX(5deg) scale(1.05)', // Enhanced 3D effect on hover
+              boxShadow: '0 25px 55px rgba(0, 0, 0, 0.5)',
+            },
+          }}
+        >
+          <MentorProgress
             sx={{
-              background: 'linear-gradient(to right, #43cea2, #185a9d)', // Green-blue gradient
-              color: 'white',
-              borderRadius: '20px',
-              transition: 'transform 0.4s ease, box-shadow 0.4s ease',
-              mb: 3, // Margin bottom for spacing
-              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
-              transform: 'perspective(1000px) rotateX(5deg) rotateY(5deg)',
-              '&:hover': {
-                transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-10px)',
-                boxShadow: '0 15px 30px rgba(0, 0, 0, 0.4)',
+              height: '100%',
+              width: '100%',
+              '& .line-graph': {
+                stroke: '#00c6ff',
+              },
+              '& .line-graph-text': {
+                color: '#dcdcdc',
+                fontSize: '0.8rem',
               },
             }}
-          >
-            <CardContent>
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
-                Students Assigned
-              </Typography>
-              <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {students.map((student, index) => (
-                  <li key={index}>{student.name} - Progress: {student.progress}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        )}
-
-        {tabIndex === 1 && (
-          <Card
-            sx={{
-              background: 'linear-gradient(to right, #ff9966, #ff5e62)', // Orange-red gradient
-              color: 'white',
-              borderRadius: '20px',
-              transition: 'transform 0.4s ease, box-shadow 0.4s ease',
-              mb: 3, // Margin bottom for spacing
-              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
-              transform: 'perspective(1000px) rotateX(5deg) rotateY(5deg)',
-              '&:hover': {
-                transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-10px)',
-                boxShadow: '0 15px 30px rgba(0, 0, 0, 0.4)',
-              },
-            }}
-          >
-            <CardContent>
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
-                Feedback
-              </Typography>
-              <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {feedback.map((item, index) => (
-                  <li key={index}>{item.date}: {item.comment}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        )}
-
-        {tabIndex === 2 && (
-          <Card
-            sx={{
-              background: 'linear-gradient(to right, #ff512f, #f09819)', // Red-orange gradient
-              color: 'white',
-              borderRadius: '20px',
-              transition: 'transform 0.4s ease, box-shadow 0.4s ease',
-              mb: 3, // Margin bottom for spacing
-              boxShadow: '0 8px 20px rgba(0, 0, 0, 0.3)',
-              transform: 'perspective(1000px) rotateX(5deg) rotateY(5deg)',
-              '&:hover': {
-                transform: 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(-10px)',
-                boxShadow: '0 15px 30px rgba(0, 0, 0, 0.4)',
-              },
-            }}
-          >
-            <CardContent>
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', fontSize: '1rem' }}>
-                Courses
-              </Typography>
-              <ul style={{ listStyleType: 'none', padding: 0 }}>
-                {courses.map((course, index) => (
-                  <li key={index}>{course.title} - Students: {course.students}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        )}
-
-        {tabIndex === 3 && (
-          <Box
-            sx={{
-              padding: '20px',
-              backgroundColor: 'transparent', // No background color
-              borderRadius: '15px',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
-              height: '400px', // Increased height
-              overflow: 'hidden', // Hide overflow for smooth animation
-            }}
-          >
-            <MentorProgress
-              sx={{
-                height: '100%', // Full height of the Box
-                '& .line-graph': {
-                  stroke: '#00c6ff', // Cyan line color
-                  strokeDasharray: '1000', // Length of the path for animation
-                  strokeDashoffset: '1000', // Start the animation with offset
-                },
-                '& .line-graph-text': {
-                  color: '#dcdcdc', // Light gray text
-                  fontSize: '0.8rem',
-                },
-              }}
-            />
-          </Box>
-        )}
+          />
+        </Card>
       </Box>
     </Box>
   );
