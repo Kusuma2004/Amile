@@ -74,11 +74,11 @@ const lineChartOptions = {
   xAxis: {
     categories: data.map((item) => item.month),
     title: { text: 'Month' },
-    labels: { style: { color: '#E0E0E0', fontFamily: 'Arial, sans-serif' } },
+    labels: { style: { color: '#fff', fontFamily: 'Arial, sans-serif' } },
   },
   yAxis: {
     title: { text: 'Progress (%)' },
-    labels: { style: { color: '#E0E0E0', fontFamily: 'Arial, sans-serif' } },
+    labels: { style: { color: '#fff', fontFamily: 'Arial, sans-serif' } },
   },
   plotOptions: {
     spline: {
@@ -194,58 +194,69 @@ const MentorProgress = () => {
     <Box
       sx={{
         padding: '20px',
-        background: 'linear-gradient(to right, #6a11cb, #2575fc)', 
+        background: 'linear-gradient(135deg, #2b5876, #4e4376)',
         borderRadius: '12px',
-        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)', // Enhanced shadow
         margin: '0 auto',
         maxWidth: '900px',
+        perspective: '1000px', // Adding perspective for 3D effect
       }}
     >
-      <Tabs
-        value={selectedTab}
-        onChange={handleTabChange}
-        centered
-        textColor="secondary"
-        indicatorColor="none"
-        sx={{ marginBottom: '20px' }}
+      <Box
+        sx={{
+          transformStyle: 'preserve-3d',
+          transition: 'transform 0.5s',
+          '&:hover': {
+            transform: 'rotateY(10deg) rotateX(5deg)', // Slight rotation on hover
+          },
+        }}
       >
-        <Tab
-          label="Line Chart"
-          sx={{
-            textTransform: 'none',
-            fontWeight: 'bold',
-            fontFamily: 'Arial, sans-serif',
-            color: '#FFFFFF', // White text for better contrast
-            '&:hover': {
-              color: '#CCCCFF', // Slightly lighter color on hover
-            },
-          }}
-        />
-        <Tab
-          label="3D Pie Chart"
-          sx={{
-            textTransform: 'none',
-            fontWeight: 'bold',
-            fontFamily: 'Arial, sans-serif',
-            color: '#FFFFFF', // White text for better contrast
-            '&:hover': {
-              color: '#CCCCFF', // Slightly lighter color on hover
-            },
-          }}
-        />
-      </Tabs>
+        <Tabs
+          value={selectedTab}
+          onChange={handleTabChange}
+          centered
+          textColor="primary"
+          indicatorColor="none"
+          sx={{ marginBottom: '20px' }}
+        >
+          <Tab
+            label="Line Chart"
+            sx={{
+              textTransform: 'none',
+              fontWeight: 'bold',
+              fontFamily: 'Arial, sans-serif',
+              color: '#FFFFFF', // White text for better contrast
+              '&:hover': {
+                color: '#CCCCFF', // Slightly lighter color on hover
+              },
+            }}
+          />
+          <Tab
+            label="3D Pie Chart"
+            sx={{
+              textTransform: 'none',
+              fontWeight: 'bold',
+              fontFamily: 'Arial, sans-serif',
+              color: '#FFFFFF', // White text for better contrast
+              '&:hover': {
+                color: '#CCCCFF', // Slightly lighter color on hover
+              },
+            }}
+          />
+        </Tabs>
 
-      {selectedTab === 0 && (
-        <Box>
-          <HighchartsReact highcharts={Highcharts} options={lineChartOptions} />
-        </Box>
-      )}
+        {selectedTab === 0 && (
+          <Box>
+            <HighchartsReact highcharts={Highcharts} options={lineChartOptions} />
+          </Box>
+        )}
 
-      {selectedTab === 1 && (
-        <Box>
-          <HighchartsReact highcharts={Highcharts} options={pieChartOptions} />
-        </Box>
-      )}
+        {selectedTab === 1 && (
+          <Box>
+            <HighchartsReact highcharts={Highcharts} options={pieChartOptions} />
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };
